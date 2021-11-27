@@ -25,7 +25,9 @@ Checkout this commit to see the changes <https://github.com/BoMarconiHenriksen/e
 
 To see the implementation go to this commit <https://github.com/BoMarconiHenriksen/express-apollo-server/commit/2d25c9240e804a3709a2c6e15cd099180fb630c5>
 
+```bash
 yarn add apollo-server-express graphql graphql-tag @graphql-tools/schema
+```
 
 Go to <http://localhost:3000/graphql>
 
@@ -47,4 +49,6 @@ Returns:
 
 ## Add Nodemon
 
-
+```bash
+yarn add nodemon -D
+```
