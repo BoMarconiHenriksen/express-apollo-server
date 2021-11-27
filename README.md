@@ -19,8 +19,8 @@ Since Node version 14.x ES modules are officially supported and stable <https://
 
 This repository has been setup to use ES6 modules.
 
-possible to "type": "module", in package.json
+Checkout this commit to see the changes <https://github.com/BoMarconiHenriksen/express-apollo-server/commit/81b4799682a78cbb5bbf59bed9e148e8bf08ebba>
 
-## Apollo Server
+## Add Apollo Server
 
 yarn add @graphql-tools/schema apollo-server-express graphql graphql-tag
