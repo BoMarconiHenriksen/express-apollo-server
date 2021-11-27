@@ -1,4 +1,5 @@
 import createError from 'http-errors';
+import { ApolloServer } from "apollo-server-express";
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
@@ -8,7 +9,30 @@ import { fileURLToPath } from 'url';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 
+// types, query, mutation and subscription
+const typeDefs = `
+    type Query {
+        totalPosts: Int!
+    }
+`;
+
+// resolvers
+const resolvers = {
+  Query: {
+    totalPosts: () => 25,
+  },
+};
+
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: true
+});
+
 var app = express();
+
+await apolloServer.start();
+apolloServer.applyMiddleware({ app, path: '/graphql' });
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

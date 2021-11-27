@@ -23,4 +23,18 @@ Checkout this commit to see the changes <https://github.com/BoMarconiHenriksen/e
 
 ## Add Apollo Server
 
-yarn add @graphql-tools/schema apollo-server-express graphql graphql-tag
+yarn add apollo-server-express graphql graphql-tag @graphql-tools/schema
+
+Go to <http://localhost:3000/graphql>
+
+```graphql
+query ExampleQuery {
+  totalPosts
+}
+```
+
+The query returns 25.
+
+## Add Nodemon
+
+
