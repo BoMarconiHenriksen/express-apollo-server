@@ -52,3 +52,7 @@ Returns:
 ```bash
 yarn add nodemon -D
 ```
+
+## Add Mongoose
+
+yarn add Mongoose
