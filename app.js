@@ -1,6 +1,8 @@
 import createError from 'http-errors';
 import { ApolloServer } from "apollo-server-express";
 import express from 'express';
+import mongoose from 'mongoose';
+import connectDatabase from './config/dbSetup.js'
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from'morgan';
@@ -8,24 +10,12 @@ import { fileURLToPath } from 'url';
 
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
+import schema from './models/graphql/schema.js'
 
-// types, query, mutation and subscription
-const typeDefs = `
-    type Query {
-        totalPosts: Int!
-    }
-`;
-
-// resolvers
-const resolvers = {
-  Query: {
-    totalPosts: () => 25,
-  },
-};
+connectDatabase();
 
 const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   playground: true
 });
 
@@ -48,6 +38,26 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+
+
+await mongoose.connection.once('connected', function () {
+  console.log('Mongoose default connection open to ' + 'mongodb://localhost:27017' + '/' + 'shoppy');
+});
+
+await mongoose.connection.on('error',function (err) {
+  console.log('Mongoose default connection error: ' + err);
+});
+
+await mongoose.connection.on('disconnected', () => console.log('Mongoose default connection disconnected'));
+
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', () => {
+  mongoose.connection.close(() => {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
